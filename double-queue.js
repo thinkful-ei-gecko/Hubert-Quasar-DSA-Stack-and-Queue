@@ -1,3 +1,4 @@
+/* eslint-disable strict */
 class _Node {
   constructor(value) {
     this.value = value;
@@ -13,12 +14,12 @@ class Queue {
   }
 
   enqueue(item) {
-    const node = new _Node(item)
-    
-    if(this.head === null) {
+    const node = new _Node(item);
+
+    if (this.head === null) {
       this.head = node;
-    } 
-    if(this.tail) {
+    }
+    if (this.tail) {
       this.tail.next = node;
       node.prev = this.tail;
     }
@@ -26,16 +27,16 @@ class Queue {
   }
 
   dequeue() {
-    if(this.head === null) {
+    if (this.head === null) {
       return;
     }
 
     let node = this.head;
     this.head = this.head.next;
     this.head.prev = null;
-    
-    if(node === this.tail) {
-      this.tail = null
+
+    if (node === this.tail) {
+      this.tail = null;
     }
     return node.value;
   }
@@ -44,35 +45,36 @@ class Queue {
 function main() {
   const starTrekQ = new Queue();
 
-  starTrekQ.enqueue('Kirk')
-  starTrekQ.enqueue('Spock')
-  starTrekQ.enqueue('Uhura')
-  starTrekQ.enqueue('Sulu')
-  starTrekQ.enqueue('Checkov')
+  starTrekQ.enqueue('Kirk');
+  starTrekQ.enqueue('Spock');
+  starTrekQ.enqueue('Uhura');
+  starTrekQ.enqueue('Sulu');
+  starTrekQ.enqueue('Checkov');
 
   //starTrekQ.dequeue();
   //starTrekQ.dequeue();
   display(starTrekQ);
+
 }
-main()
+main();
 
 function peek(queue) {
-  return queue.head
+  return queue.head;
 }
 
 function isEmpty(queue) {
-  if(queue.head === null) {
-    console.log('Queue is empty')
+  if (queue.head === null) {
+    console.log('Queue is empty');
   } else {
-    console.log('Queue has data')
+    console.log('Queue has data');
   }
 }
 
 function display(queue) {
   let node = queue.head;
 
-  while(node !== null) {
-    console.log(node.value)
+  while (node !== null) {
+    console.log(node.value);
     node = node.next;
   }
 }

@@ -20,7 +20,7 @@ class Stack {
   }
 
   pop() {
-    if(this.top === null) {
+    if (this.top === null) {
       return null;
     }
     const node = this.top;
@@ -76,61 +76,32 @@ function is_palindrome(s) {
 function matchParenthesis(string) {
   let stringStack = new Stack();
   let parens = 0;
-  
-  for (let i = 0 ; i < string.length ; i++ ) {
+
+  for (let i = 0; i < string.length; i++) {
     stringStack.push(string[i]);
   }
-  while(stringStack.top != null) {
+  while (stringStack.top != null) {
     let poppedChar = stringStack.pop();
     if (poppedChar === '(') parens++;
     if (poppedChar === ')') parens--;
   }
 
-  if (parens > 0 ){
+  if (parens > 0) {
     return 'you are missing one or more \')\'';
-  } else if (parens < 0 ) {
+  } else if (parens < 0) {
     return 'you are missing one or more \'(\'';
   } else {
     return 'your expression is fine';
   }
 }
 
-// function sort(stack) {
-//   let tStack = new Stack();
-
-//   while(stack.top != null) {
-//     let sVal = stack.pop();
-//     console.log('pop orig stack');
-//     if(tStack.top !== null || sVal >= tStack.top) tStack.push(sVal);
-//     else if (sVal < tStack.top){
-//       console.log('pop tstack');
-//       let tVal = tStack.pop();
-//       stack.push(tVal);
-//       tStack.push(sVal);
-
-//       if (tStack.top.value > sVal) {
-//         console.log('pop tstack again');
-//         tStack.pop();
-//         tVal = tStack.pop();
-//         stack.push(tVal);
-//         tStack.push(sVal);
-//       }
-//     }
-//   }
-
-//   while(tStack.top != null) {
-//     console.log('part 2');
-//     stack.push(tStack.pop());
-//   }
-// }
-
 function sortA(stack) {
   //let stackA = new Stack();
   let stackB = new Stack();
 
-  while(stack.top !== null) {
+  while (stack.top !== null) {
     let temp = stack.pop();
-    while(stackB.top !== null && temp > stackB.top.value) {
+    while (stackB.top !== null && temp > stackB.top.value) {
       stack.push(stackB.pop())
     }
     stackB.push(temp);
@@ -152,24 +123,41 @@ class QueueStack {
 
   enqueue(item) {
     this.stackA.push(item)
-    
-    if(this.head === null) {
+
+    if (this.head === null) {
       this.head = this.stackA.top;
     }
     this.tail = this.stackA.top;
   }
 
   dequeue() {
-    if(this.head === null) {
+    if (this.head === null) {
       return;
     }
 
+    let prevHead = this.head;
     let node = this.stackA.top;
+    while (node.next != null) {
+      let poppedVal = this.stackA.pop();
+      this.stackB.push(poppedVal);
+      node = node.next;
+    }
+
+    this.stackA.pop();
+    this.head = this.stackB.top;
+
+    node = this.stackB.top;
+    while (node != null) {
+      this.stackA.push(this.stackB.pop());
+      node = node.next;
+    }
+
+    return prevHead.value;
   }
 }
 
 function displayQueue(queue) {
-  display(queue.stackA)
+  display(queue.stackA);
 }
 
 function main() {
@@ -220,6 +208,16 @@ function main() {
   starTrekQ.enqueue('Uhura');
   starTrekQ.enqueue('Sulu');
   starTrekQ.enqueue('Checkov');
+
+  starTrekQ.dequeue();
+  starTrekQ.dequeue();
+  starTrekQ.dequeue();
+  starTrekQ.dequeue();
+  starTrekQ.dequeue();
+
+  starTrekQ.enqueue('3');
+  starTrekQ.enqueue('4');
+  starTrekQ.enqueue('5');
 
   displayQueue(starTrekQ);
 }
