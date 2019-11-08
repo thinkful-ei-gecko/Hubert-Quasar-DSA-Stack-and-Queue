@@ -95,6 +95,36 @@ function matchParenthesis(string) {
   }
 }
 
+function sort(stack) {
+  let tStack = new Stack();
+
+  while(stack.top != null) {
+    let sVal = stack.pop();
+    console.log('pop orig stack');
+    if(tStack.top == null || sVal >= tStack.top) tStack.push(sVal);
+    else if (sVal < tStack.top){
+      console.log('pop tstack');
+      let tVal = tStack.pop();
+      stack.push(tVal);
+      tStack.push(sVal);
+
+      if (tStack.top.value > sVal) {
+        console.log('pop tstack again');
+        tStack.pop();
+        tVal = tStack.pop();
+        stack.push(tVal);
+        tStack.push(sVal);
+      }
+    }
+  }
+
+  while(tStack.top != null) {
+    console.log('part 2');
+    stack.push(tStack.pop());
+  }
+
+}
+
 function main() {
   const starTrek = new Stack();
 
@@ -103,7 +133,7 @@ function main() {
   starTrek.push('McCoy');
   starTrek.push('Scotty');
 
-  starTrek.pop();
+  // starTrek.pop();
 
   //console.log(JSON.stringify(starTrek))
   //console.log(peek(starTrek));
@@ -120,5 +150,18 @@ function main() {
   console.log(matchParenthesis('1 + (2 * 3 * (4 * 5))'));
   console.log(matchParenthesis('1 + (2 * 3 * (4 * 5)'));
   console.log(matchParenthesis('1 + (2 * 3 * (4 * 5)))))'));
+
+  const numStack = new Stack();
+  numStack.push(1);
+  numStack.push(5);
+  numStack.push(2);
+  numStack.push(6);
+  numStack.push(6);
+  numStack.push(3);
+  numStack.push(23);
+  numStack.push(4);
+
+  sort(starTrek);
+  display(starTrek);
 }
 main();
