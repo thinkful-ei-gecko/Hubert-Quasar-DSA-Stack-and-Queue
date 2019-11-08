@@ -142,7 +142,35 @@ function sortA(stack) {
   return stackB;
 }
 
+class QueueStack {
+  constructor() {
+    this.head = null;
+    this.tail = null;
+    this.stackA = new Stack();
+    this.stackB = new Stack();
+  }
 
+  enqueue(item) {
+    this.stackA.push(item)
+    
+    if(this.head === null) {
+      this.head = this.stackA.top;
+    }
+    this.tail = this.stackA.top;
+  }
+
+  dequeue() {
+    if(this.head === null) {
+      return;
+    }
+
+    let node = this.stackA.top;
+  }
+}
+
+function displayQueue(queue) {
+  display(queue.stackA)
+}
 
 function main() {
   const starTrek = new Stack();
@@ -157,7 +185,7 @@ function main() {
   //console.log(JSON.stringify(starTrek))
   //console.log(peek(starTrek));
   //isEmpty(starTrek);
-  display(starTrek);
+  //display(starTrek);
 
   // True, true, true, false
   // console.log(is_palindrome("dad"));
@@ -182,7 +210,18 @@ function main() {
 
   //sort(starTrek);
 
-  numStack = sortA(numStack);
-  display(numStack);
+  // numStack = sortA(numStack);
+  // display(numStack);
+
+  const starTrekQ = new QueueStack();
+
+  starTrekQ.enqueue('Kirk');
+  starTrekQ.enqueue('Spock');
+  starTrekQ.enqueue('Uhura');
+  starTrekQ.enqueue('Sulu');
+  starTrekQ.enqueue('Checkov');
+
+  displayQueue(starTrekQ);
 }
 main();
+
