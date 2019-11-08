@@ -95,35 +95,54 @@ function matchParenthesis(string) {
   }
 }
 
-function sort(stack) {
-  let tStack = new Stack();
+// function sort(stack) {
+//   let tStack = new Stack();
 
-  while(stack.top != null) {
-    let sVal = stack.pop();
-    console.log('pop orig stack');
-    if(tStack.top == null || sVal >= tStack.top) tStack.push(sVal);
-    else if (sVal < tStack.top){
-      console.log('pop tstack');
-      let tVal = tStack.pop();
-      stack.push(tVal);
-      tStack.push(sVal);
+//   while(stack.top != null) {
+//     let sVal = stack.pop();
+//     console.log('pop orig stack');
+//     if(tStack.top !== null || sVal >= tStack.top) tStack.push(sVal);
+//     else if (sVal < tStack.top){
+//       console.log('pop tstack');
+//       let tVal = tStack.pop();
+//       stack.push(tVal);
+//       tStack.push(sVal);
 
-      if (tStack.top.value > sVal) {
-        console.log('pop tstack again');
-        tStack.pop();
-        tVal = tStack.pop();
-        stack.push(tVal);
-        tStack.push(sVal);
-      }
+//       if (tStack.top.value > sVal) {
+//         console.log('pop tstack again');
+//         tStack.pop();
+//         tVal = tStack.pop();
+//         stack.push(tVal);
+//         tStack.push(sVal);
+//       }
+//     }
+//   }
+
+//   while(tStack.top != null) {
+//     console.log('part 2');
+//     stack.push(tStack.pop());
+//   }
+// }
+
+function sortA(stack) {
+  //let stackA = new Stack();
+  let stackB = new Stack();
+
+  while(stack.top !== null) {
+    let temp = stack.pop();
+    while(stackB.top !== null && temp > stackB.top.value) {
+      stack.push(stackB.pop())
     }
+    stackB.push(temp);
   }
 
-  while(tStack.top != null) {
-    console.log('part 2');
-    stack.push(tStack.pop());
-  }
-
+  // while(stackB !== null) {
+  //   stack.push(stackB.pop())
+  // }
+  return stackB;
 }
+
+
 
 function main() {
   const starTrek = new Stack();
@@ -141,17 +160,17 @@ function main() {
   display(starTrek);
 
   // True, true, true, false
-  console.log(is_palindrome("dad"));
-  console.log(is_palindrome("A man, a plan, a canal: Panama"));
-  console.log(is_palindrome("1001"));
-  console.log(is_palindrome("134201"));
-  console.log(is_palindrome("Tauhida"));
+  // console.log(is_palindrome("dad"));
+  // console.log(is_palindrome("A man, a plan, a canal: Panama"));
+  // console.log(is_palindrome("1001"));
+  // console.log(is_palindrome("134201"));
+  // console.log(is_palindrome("Tauhida"));
 
-  console.log(matchParenthesis('1 + (2 * 3 * (4 * 5))'));
-  console.log(matchParenthesis('1 + (2 * 3 * (4 * 5)'));
-  console.log(matchParenthesis('1 + (2 * 3 * (4 * 5)))))'));
+  // console.log(matchParenthesis('1 + (2 * 3 * (4 * 5))'));
+  // console.log(matchParenthesis('1 + (2 * 3 * (4 * 5)'));
+  // console.log(matchParenthesis('1 + (2 * 3 * (4 * 5)))))'));
 
-  const numStack = new Stack();
+  let numStack = new Stack();
   numStack.push(1);
   numStack.push(5);
   numStack.push(2);
@@ -161,7 +180,9 @@ function main() {
   numStack.push(23);
   numStack.push(4);
 
-  sort(starTrek);
-  display(starTrek);
+  //sort(starTrek);
+
+  numStack = sortA(numStack);
+  display(numStack);
 }
 main();
