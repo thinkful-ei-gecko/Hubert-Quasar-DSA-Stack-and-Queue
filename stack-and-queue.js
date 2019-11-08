@@ -81,8 +81,9 @@ function matchParenthesis(string) {
     stringStack.push(string[i]);
   }
   while(stringStack.top != null) {
-    if (stringStack.pop() === '(') parens++;
-    if (stringStack.pop() === ')') parens--;
+    let poppedChar = stringStack.pop();
+    if (poppedChar === '(') parens++;
+    if (poppedChar === ')') parens--;
   }
 
   if (parens > 0 ){
@@ -93,7 +94,6 @@ function matchParenthesis(string) {
     return 'your expression is fine';
   }
 }
-
 
 function main() {
   const starTrek = new Stack();
